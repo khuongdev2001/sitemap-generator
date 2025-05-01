@@ -108,8 +108,8 @@ module.exports = function SitemapGenerator(uri, opts) {
 
       if (sitemapPath !== null) {
         // eslint-disable-next-line
-        const lastMod = queueItem.stateData.headers['last-modified'];
-        sitemap.addURL(url, depth, lastMod && new Date());
+        const lastMod = (new Date()).toISOString();
+        sitemap.addURL(url, depth, lastMod);
       }
     }
   });
