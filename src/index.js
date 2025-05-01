@@ -109,7 +109,7 @@ module.exports = function SitemapGenerator(uri, opts) {
       if (sitemapPath !== null) {
         // eslint-disable-next-line
         const lastMod = queueItem.stateData.headers['last-modified'];
-        sitemap.addURL(url, depth, lastMod && format(lastMod, 'YYYY-MM-DD'));
+        sitemap.addURL(url, depth, lastMod && new Date());
       }
     }
   });
