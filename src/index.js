@@ -29,7 +29,8 @@ module.exports = function SitemapGenerator(uri, opts) {
     changeFreq: '',
     priorityMap: [],
     ignoreAMP: true,
-    ignore: null
+    ignore: null,
+    ignoreMetaNoIndex: false
   };
 
   if (!uri) {
@@ -96,10 +97,9 @@ module.exports = function SitemapGenerator(uri, opts) {
   // fetch complete event
   crawler.on('fetchcomplete', (queueItem, page) => {
     const { url, depth } = queueItem;
-
     if (
       (opts.ignore && opts.ignore(url)) ||
-      /(<meta(?=[^>]+noindex).*?>)/.test(page) || // check if robots noindex is present
+      (options.ignoreMetaNoIndex && /(<meta(?=[^>]+noindex).*?>)/.test(page)) || // check if robots noindex is present
       (options.ignoreAMP && /<html[^>]+(amp|⚡)[^>]*>/.test(page)) // check if it's an amp page
     ) {
       emitter.emit('ignore', url);
